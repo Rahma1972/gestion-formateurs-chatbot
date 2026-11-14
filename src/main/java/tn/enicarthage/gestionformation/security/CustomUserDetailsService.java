@@ -1,0 +1,24 @@
+package tn.enicarthage.gestionformation.security;
+
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
+import tn.enicarthage.gestionformation.utilisateur.repository.UtilisateurRepository;
+
+@Service
+public class CustomUserDetailsService implements UserDetailsService {
+
+    private final UtilisateurRepository utilisateurRepository;
+
+    public CustomUserDetailsService(UtilisateurRepository utilisateurRepository) {
+        this.utilisateurRepository = utilisateurRepository;
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        return utilisateurRepository.findByEmail(email)
+                .map(CustomUserDetails::new)
+                .orElseThrow(() -> new UsernameNotFoundException("Utilisateur introuvable : " + email));
+    }
+}

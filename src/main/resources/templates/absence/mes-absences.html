@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{absence.mesabsences.titre}"></title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div th:replace="~{layout/fragments :: entete(#{absence.mesabsences.titre})}"></div>
+
+<h3 style="text-align:center" th:text="#{absence.aJustifier.titre}"></h3>
+<div class="form-container" th:each="a : ${absencesAJustifier}" style="margin-bottom:16px;">
+    <p><strong th:text="#{absence.dateAbsence}"></strong> : <span th:text="${a.dateAbsence}"></span></p>
+    <p><strong th:text="#{absence.dateLimite}"></strong> : <span th:text="${a.dateLimite}"></span></p>
+
+    <form th:if="${not a.delaiDepasse}" th:action="@{/mes-absences/deposer}" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="presenceSeanceId" th:value="${a.presenceSeanceId}">
+        <h4 th:text="#{absence.champ.description}"></h4>
+        <textarea name="description" rows="3" style="width:100%; padding:10px; border:1px solid var(--line); border-radius:var(--radius);"></textarea>
+        <h4 th:text="#{absence.champ.fichier}"></h4>
+        <input type="file" name="fichier" accept=".pdf,.jpg,.jpeg,.png">
+        <input type="submit" th:value="#{absence.submit}">
+    </form>
+
+    <div th:if="${a.delaiDepasse}">
+        <button type="button"
+                style="width:100%; background-color:#ccc; color:#666; padding:14px 20px; border:none; border-radius:var(--radius); cursor:not-allowed;"
+                th:onclick="'alert(\'' + #{absence.delaiDepasse.note} + '\')'"
+                th:text="#{absence.submit}"></button>
+    </div>
+</div>
+<p class="vide" th:if="${#lists.isEmpty(absencesAJustifier)}" th:text="#{absence.aucuneAJustifier}"></p>
+
+<h3 style="text-align:center" th:text="#{absence.historique.titre}"></h3>
+<table>
+    <tr>
+        <th th:text="#{absence.dateAbsence}"></th>
+        <th th:text="#{absence.tableau.description}"></th>
+        <th th:text="#{absence.tableau.fichier}"></th>
+        <th th:text="#{absence.tableau.statut}"></th>
+        <th th:text="#{absence.tableau.commentaire}"></th>
+    </tr>
+    <tr th:each="j : ${justificatifs}">
+        <td th:text="${j.dateAbsence}"></td>
+        <td th:text="${j.description}"></td>
+        <td><a th:if="${j.possedeFichier}" th:href="@{/mes-absences/fichier/{id}(id=${j.id})}" th:text="${j.nomFichier}"></a></td>
+        <td><span class="statut" th:classappend="${j.statut}" th:text="#{'justificatif.statut.' + ${j.statut}}"></span></td>
+        <td th:text="${j.commentaireAdmin}"></td>
+    </tr>
+</table>
+</body>
+</html>

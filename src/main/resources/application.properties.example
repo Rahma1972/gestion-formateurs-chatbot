@@ -1,0 +1,30 @@
+# --- Profil actif par d�faut ---
+spring.profiles.active=dev
+
+# --- JPA / Hibernate (commun � tous les environnements) ---
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.format_sql=true
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MariaDBDialect
+
+# --- Encodage (commun) ---
+app.upload.dir=uploads
+spring.servlet.multipart.max-file-size=5MB
+spring.servlet.multipart.max-request-size=5MB
+server.servlet.encoding.charset=UTF-8
+server.servlet.encoding.enabled=true
+server.servlet.encoding.force=true
+server.servlet.session.timeout=30m
+spring.messages.encoding=UTF-8
+
+# --- Thymeleaf ---
+spring.thymeleaf.cache=false
+
+# --- Port ---
+server.port=8080
+
+# --- Logs applicatifs ---
+logging.level.tn.enicarthage.gestionformation=DEBUG
+logging.level.org.springframework.security=INFO
+logging.pattern.console=%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n
+

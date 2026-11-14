@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>خطأ</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="menu-container" style="text-align:center">
+    <h1 style="color:#e74c3c" th:text="#{erreur.metier.titre}"></h1>    <p th:text="${message}"></p>
+    <a class="menu-btn" th:href="@{/menu}" style="display:inline-block; text-decoration:none; margin-top:20px;" th:text="#{commun.retour}"></a></div>
+</body>
+</html>

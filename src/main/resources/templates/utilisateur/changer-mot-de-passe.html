@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{motdepasse.titre}"></title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div th:replace="~{layout/fragments :: entete(#{motdepasse.titre})}"></div>
+
+<div class="form-container">
+    <p class="info" th:if="${succes}" th:text="#{motdepasse.succes}"></p>
+    <p class="erreur" th:if="${erreurConfirmation}" th:text="${erreurConfirmation}"></p>
+
+    <form th:action="@{/mon-compte/mot-de-passe}" th:object="${motDePasse}" method="post">
+
+        <h4 th:text="#{motdepasse.actuel}"></h4>
+        <input type="password" th:field="*{motDePasseActuel}">
+        <span class="erreur" th:if="${#fields.hasErrors('motDePasseActuel')}" th:errors="*{motDePasseActuel}"></span>
+
+        <h4 th:text="#{motdepasse.nouveau}"></h4>
+        <input type="password" th:field="*{nouveauMotDePasse}">
+        <span class="erreur" th:if="${#fields.hasErrors('nouveauMotDePasse')}" th:errors="*{nouveauMotDePasse}"></span>
+        <p class="aide" th:text="#{formateur.champ.motDePasse.aide}"></p>
+
+        <h4 th:text="#{motdepasse.confirmation}"></h4>
+        <input type="password" th:field="*{confirmationMotDePasse}">
+        <span class="erreur" th:if="${#fields.hasErrors('confirmationMotDePasse')}" th:errors="*{confirmationMotDePasse}"></span>
+
+        <input type="submit" th:value="#{motdepasse.submit}">
+    </form>
+</div>
+</body>
+</html>

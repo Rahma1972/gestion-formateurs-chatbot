@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${modeModification} ? #{salle.formulaire.titre.modif} : #{salle.formulaire.titre.ajout}"></title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div th:replace="~{layout/fragments :: entete(${modeModification} ? #{salle.formulaire.titre.modif} : #{salle.formulaire.titre.ajout})}"></div>
+
+<div class="form-container">
+    <form th:action="${modeModification} ? @{/salles/modifier/{id}(id=${salle.id})} : @{/salles/enregistrer}"
+          th:object="${salle}" method="post">
+
+        <h4 th:text="#{salle.champ.nom}"></h4>
+        <input type="text" th:field="*{nom}">
+        <span class="erreur" th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}"></span>
+
+        <h4 th:text="#{salle.champ.capacite}"></h4>
+        <input type="text" th:field="*{capacite}">
+        <span class="erreur" th:if="${#fields.hasErrors('capacite')}" th:errors="*{capacite}"></span>
+
+        <input type="submit" th:value="#{salle.submit}">
+    </form>
+</div>
+</body>
+</html>

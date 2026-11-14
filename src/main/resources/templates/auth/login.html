@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{login.titre}"></title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body class="page-auth">
+<div class="auth-shell">
+    <div class="auth-brand">
+        <img th:src="@{/images/logo-cni.jpg}" alt="Logo" class="auth-logo">
+        <h2 class="auth-brand-titre" th:text="#{navbar.brand}"></h2>
+        <p class="auth-brand-sous" th:text="#{navbar.sous.titre}"></p>
+    </div>
+    <div class="auth-form-panel">
+
+
+        <h1 class="auth-titre" th:text="#{login.titre}"></h1>
+
+        <p class="erreur" th:if="${param.erreur != null and param.erreur[0] == 'compte_inactif'}" th:text="#{login.erreur.inactif}"></p>
+        <p class="erreur" th:if="${param.erreur != null and param.erreur[0] == 'compte_verrouille'}" th:text="#{login.erreur.verrouille}"></p>
+        <p class="erreur" th:if="${param.erreur != null and param.erreur[0] == 'session_expiree'}" th:text="#{login.erreur.session}"></p>
+        <p class="erreur" th:if="${param.erreur != null and param.erreur[0] == 'identifiants'}" th:text="#{login.erreur.identifiants}"></p>
+        <p class="info" th:if="${param.logout}" th:text="#{login.logout.succes}"></p>
+
+        <form th:action="@{/login}" method="post">
+            <h4 th:text="#{login.email}"></h4>
+            <input type="email" name="username" required autofocus>
+
+            <h4 th:text="#{login.password}"></h4>
+            <input type="password" name="password" required>
+
+            <input type="submit" th:value="#{login.submit}">
+        </form>
+
+        <div class="auth-separateur"><span th:text="#{login.separateur}"></span></div>
+
+        <a th:href="@{/inscription}" class="auth-lien-inscription" th:text="#{login.inscription}"></a>
+
+        <div th:replace="~{layout/fragments :: piedDePage}"></div>    </div>
+</div>
+</body>
+</html>

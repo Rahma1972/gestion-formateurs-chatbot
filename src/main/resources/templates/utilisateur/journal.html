@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{admin.journal.titre}"></title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div th:replace="~{layout/fragments :: entete(#{admin.journal.titre})}"></div>
+
+<table>
+    <tr>
+        <th th:text="#{admin.journal.date}"></th>
+        <th th:text="#{admin.journal.type}"></th>
+        <th th:text="#{admin.journal.email}"></th>
+        <th th:text="#{admin.journal.details}"></th>
+    </tr>
+    <tr th:each="e : ${evenements}">
+        <td th:text="${e.dateEvenement}"></td>
+        <td th:text="${e.typeEvenement}"></td>
+        <td th:text="${e.emailConcerne}"></td>
+        <td th:text="${e.details}"></td>
+    </tr>
+</table>
+</body>
+</html>

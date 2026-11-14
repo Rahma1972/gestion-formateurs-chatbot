@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{salle.liste.titre}"></title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div th:replace="~{layout/fragments :: entete(#{salle.liste.titre})}"></div>
+
+<div class="form-container" style="max-width:500px; padding:16px;">
+    <form th:action="@{/salles}" method="get" style="display:flex; gap:8px;">
+        <input type="text" name="recherche" th:value="${recherche}" th:placeholder="#{recherche.placeholder}" style="flex:1; margin:0;">
+        <input type="submit" th:value="#{recherche.bouton}" style="width:auto; margin:0;">
+    </form>
+</div>
+
+<div class="actions-bar">
+    <a class="btn ajout" th:href="@{/salles/nouveau}" th:text="#{salle.ajouter}"></a>
+</div>
+
+<table>
+    <tr>
+        <th th:text="#{salle.tableau.nom}"></th>
+        <th th:text="#{salle.tableau.capacite}"></th>
+        <th th:text="#{salle.tableau.action}"></th>
+    </tr>
+    <tr th:each="s : ${salles}">
+        <td th:text="${s.nom}"></td>
+        <td th:text="${s.capacite} ?: #{salle.capacite.nonDefinie}"></td>
+        <td>
+            <a class="btn ajout" th:href="@{/salles/modifier/{id}(id=${s.id})}" th:text="#{formateur.modifier}"></a>
+            <a class="btn suppr" th:href="@{/salles/supprimer/{id}(id=${s.id})}" th:text="#{formateur.supprimer}"></a>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

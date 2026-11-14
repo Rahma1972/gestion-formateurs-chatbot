@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{gestion.titre}"></title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div th:replace="~{layout/fragments :: entete(${gestion.theme})}"></div>
+
+<h3 style="text-align:center" th:text="#{gestion.seances.titre}"></h3>
+<div class="actions-bar">
+    <span th:each="jour : ${gestion.joursCycle}">
+        <a th:if="${jour == T(java.time.LocalDate).now()}"
+           class="btn ajout" style="margin:4px;"
+           th:href="@{/formateurs/mes-cycles/{id}/seance(id=${gestion.id}, date=${jour})}"
+           th:text="${jour}"></a>
+        <span th:unless="${jour == T(java.time.LocalDate).now()}"
+              style="margin:4px; padding:9px 18px; display:inline-block; background:#e5e2da; color:var(--muted); border-radius:var(--radius);"
+              th:text="${jour}"></span>
+    </span>
+</div>
+
+<h3 style="text-align:center" th:text="#{gestion.supports.titre}"></h3>
+<div class="form-container">
+    <table>
+        <tr th:each="s : ${gestion.supports}">
+            <td th:text="${s.titre}"></td>
+            <td><a th:href="${s.url}" target="_blank" th:text="#{gestion.support.ouvrir}"></a></td>
+            <td><a class="btn suppr" th:href="@{/formateurs/mes-cycles/support/supprimer/{sid}/{cid}(sid=${s.id},cid=${gestion.id})}" th:text="#{gestion.support.supprimer}"></a></td>
+        </tr>
+    </table>
+
+    <form th:action="@{/formateurs/mes-cycles/{id}/support(id=${gestion.id})}" method="post" style="margin-top:16px;">
+        <h4 th:text="#{gestion.support.titre.champ}"></h4>
+        <input type="text" name="titre" required>
+        <h4 th:text="#{gestion.support.url.champ}"></h4>
+        <input type="text" name="url" required>
+        <input type="submit" th:value="#{gestion.support.ajouter}">
+    </form>
+</div>
+</body>
+</html>

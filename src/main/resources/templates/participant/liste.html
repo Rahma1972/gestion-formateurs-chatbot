@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{participant.liste.titre}"></title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div th:replace="~{layout/fragments :: entete(${#authorization.expression('hasRole(''ADMIN'')')} ? #{participant.liste.titre} : #{participant.mesinfos.titre})}"></div>
+
+<div class="form-container" style="max-width:500px; padding:16px;" sec:authorize="hasRole('ADMIN')">    <form th:action="@{/participants}" method="get" style="display:flex; gap:8px;">
+        <input type="text" name="recherche" th:value="${recherche}" th:placeholder="#{recherche.placeholder}" style="flex:1; margin:0;">
+        <input type="submit" th:value="#{recherche.bouton}" style="width:auto; margin:0;">
+    </form>
+</div>
+
+<table>
+    <tr>
+        <th th:text="#{participant.tableau.nom}"></th>
+        <th th:text="#{participant.tableau.cin}"></th>
+        <th th:text="#{participant.tableau.entreprise}"></th>
+
+        <th th:text="#{participant.tableau.email}"></th>
+        <th th:text="#{participant.tableau.action}"></th>
+    </tr>
+    <tr th:each="p : ${participants}">
+        <td th:text="${p.nomPrenom}"></td>
+        <td th:with="longueur=${#strings.length(p.cin)}"
+            th:text="${longueur > 4} ? (${#strings.substring(p.cin, 0, 2)} + '****' + ${#strings.substring(p.cin, longueur - 2, longueur)}) : ${p.cin}">
+        </td>
+        <td th:text="${p.entreprise}"></td>
+
+        <td th:text="${p.email}"></td>
+        <td>
+            <a class="btn ajout" th:href="@{/participants/modifier/{id}(id=${p.id})}" th:text="#{formateur.modifier}"></a>
+            <a class="btn suppr" sec:authorize="hasRole('ADMIN')" th:href="@{/participants/supprimer/{id}(id=${p.id})}" th:text="#{formateur.supprimer}"></a>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

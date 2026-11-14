@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{cycle.liste.titre}"></title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div th:replace="~{layout/fragments :: entete(#{cycle.liste.titre})}"></div>
+
+<div class="form-container" style="max-width:500px; padding:16px;">
+    <form th:action="@{/cycles}" method="get" style="display:flex; gap:8px;">
+        <input type="text" name="recherche" th:value="${recherche}" th:placeholder="#{recherche.placeholder}" style="flex:1; margin:0;">
+        <input type="submit" th:value="#{recherche.bouton}" style="width:auto; margin:0;">
+    </form>
+</div>
+
+<div class="actions-bar" sec:authorize="hasRole('ADMIN')">
+    <a class="btn ajout" th:href="@{/cycles/nouveau}" th:text="#{cycle.ajouter}"></a>
+</div>
+
+<table>
+    <tr>
+        <th th:text="#{cycle.tableau.numAct}"></th>
+        <th th:text="#{cycle.tableau.theme}"></th>
+        <th th:text="#{cycle.tableau.dateDeb}"></th>
+        <th th:text="#{cycle.tableau.dateFin}"></th>
+        <th th:text="#{cycle.tableau.salle}"></th>
+        <th th:text="#{cycle.tableau.formateurs}"></th>
+        <th th:text="#{cycle.tableau.statut}"></th>
+        <th th:text="#{cycle.tableau.action}"></th>
+    </tr>
+    <tr th:each="c : ${cycles}">
+        <td th:text="${c.numAct}"></td>
+        <td th:text="${c.theme}"></td>
+        <td th:text="${c.dateDeb}"></td>
+        <td th:text="${c.dateFin}"></td>
+        <td th:text="${c.salleNom}"></td>
+        <td th:text="${#strings.listJoin(c.formateurNoms, ', ')}"></td>
+        <td><span class="statut" th:classappend="${c.statut}" th:text="#{'cycle.statut.' + ${c.statut}}"></span></td>        <td sec:authorize="hasRole('ADMIN')">
+            <a class="btn ajout" th:href="@{/cycles/modifier/{id}(id=${c.id})}" th:text="#{formateur.modifier}"></a>
+            <a class="btn suppr" th:href="@{/cycles/supprimer/{id}(id=${c.id})}" th:text="#{formateur.supprimer}"></a>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

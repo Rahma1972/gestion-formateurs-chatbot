@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{admin.attente.titre}"></title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div th:replace="~{layout/fragments :: entete(#{admin.attente.titre})}"></div>
+
+<p class="vide" th:if="${#lists.isEmpty(comptes)}" th:text="#{admin.attente.vide}"></p>
+
+<table th:if="${not #lists.isEmpty(comptes)}">
+    <tr>
+        <th th:text="#{admin.attente.email}"></th>
+        <th th:text="#{admin.attente.role}"></th>
+        <th th:text="#{admin.attente.date}"></th>
+        <th th:text="#{admin.attente.action}"></th>
+    </tr>
+    <tr th:each="c : ${comptes}">
+        <td th:text="${c.email}"></td>
+        <td th:text="${c.role}"></td>
+        <td th:text="${c.dateCreation}"></td>
+        <td><a class="btn activer" th:href="@{/admin/utilisateurs/activer/{id}(id=${c.id})}" th:text="#{admin.attente.activer}"></a></td>
+    </tr>
+</table>
+</body>
+</html>

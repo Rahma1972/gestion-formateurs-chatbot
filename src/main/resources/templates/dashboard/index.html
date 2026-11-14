@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{dashboard.titre}"></title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+</head>
+<body>
+<div th:replace="~{layout/fragments :: entete(#{dashboard.titre})}"></div>
+
+<div class="dashboard-cartes">
+    <div class="carte-stat">
+        <div class="carte-valeur" th:text="${dashboard.totalFormateurs}"></div>
+        <div class="carte-label" th:text="#{dashboard.totalFormateurs}"></div>
+    </div>
+    <div class="carte-stat">
+        <div class="carte-valeur" th:text="${dashboard.totalParticipants}"></div>
+        <div class="carte-label" th:text="#{dashboard.totalParticipants}"></div>
+    </div>
+    <div class="carte-stat">
+        <div class="carte-valeur" th:text="${dashboard.totalCycles}"></div>
+        <div class="carte-label" th:text="#{dashboard.totalCycles}"></div>
+    </div>
+    <div class="carte-stat">
+        <div class="carte-valeur" th:text="${#numbers.formatDecimal(dashboard.tauxRemplissageMoyen, 1, 1)} + '%'"></div>
+        <div class="carte-label" th:text="#{dashboard.tauxRemplissage}"></div>
+    </div>
+    <div class="carte-stat carte-alerte" th:if="${dashboard.comptesEnAttente > 0}">
+        <a th:href="@{/admin/utilisateurs}" style="text-decoration:none; color:inherit;">
+            <div class="carte-valeur" th:text="${dashboard.comptesEnAttente}"></div>
+            <div class="carte-label" th:text="#{dashboard.comptesEnAttente}"></div>
+        </a>
+    </div>
+    <div class="carte-stat carte-alerte" th:if="${dashboard.justificatifsEnAttente > 0}">
+        <a th:href="@{/admin/justificatifs}" style="text-decoration:none; color:inherit;">
+            <div class="carte-valeur" th:text="${dashboard.justificatifsEnAttente}"></div>
+            <div class="carte-label" th:text="#{dashboard.justificatifsEnAttente}"></div>
+        </a>
+    </div>
+</div>
+
+<div class="dashboard-graphiques">
+    <div class="graphique-conteneur">
+        <h3 style="text-align:center" th:text="#{dashboard.parStatut}"></h3>
+        <canvas id="graphiqueStatut"></canvas>
+    </div>
+    <div class="graphique-conteneur">
+        <h3 style="text-align:center" th:text="#{dashboard.parMois}"></h3>
+        <canvas id="graphiqueMois"></canvas>
+    </div>
+    <div class="graphique-conteneur" th:if="${not #maps.isEmpty(dashboard.moyenneEvaluationParCycle)}">
+        <h3 style="text-align:center" th:text="#{dashboard.evaluations}"></h3>
+        <canvas id="graphiqueEvaluations"></canvas>
+    </div>
+</div>
+
+<div id="donnees-dashboard"
+     style="display:none"
+     th:data-statut-labels="${statutLabelsJson}"
+     th:data-statut-values="${statutValuesJson}"
+     th:data-mois-labels="${moisLabelsJson}"
+     th:data-mois-values="${moisValuesJson}"
+     th:data-eval-labels="${evalLabelsJson}"
+     th:data-eval-values="${evalValuesJson}">
+</div>
+
+<script th:src="@{/js/dashboard.js}"></script>
+</body>
+</html>

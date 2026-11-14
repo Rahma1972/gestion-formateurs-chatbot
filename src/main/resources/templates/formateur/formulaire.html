@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${modeModification} ? #{formateur.formulaire.titre.modif} : #{formateur.formulaire.titre.ajout}"></title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div th:replace="~{layout/fragments :: entete(${modeModification} ? #{formateur.formulaire.titre.modif} : #{formateur.formulaire.titre.ajout})}"></div>
+
+<div class="form-container">
+    <form th:action="${modeModification} ? @{/formateurs/modifier/{id}(id=${formateur.id})} : @{/formateurs/enregistrer}"
+          th:object="${formateur}" method="post">
+
+        <h4 th:text="#{formateur.champ.nomPrenom}"></h4>
+        <input type="text" th:field="*{nomPrenom}">
+        <span class="erreur" th:if="${#fields.hasErrors('nomPrenom')}" th:errors="*{nomPrenom}"></span>
+
+        <h4 th:text="#{formateur.champ.specialite}"></h4>
+        <input type="text" th:field="*{specialite}">
+        <span class="erreur" th:if="${#fields.hasErrors('specialite')}" th:errors="*{specialite}"></span>
+
+        <h4 th:text="#{formateur.champ.direction}"></h4>
+        <input type="text" th:field="*{direction}">
+        <span class="erreur" th:if="${#fields.hasErrors('direction')}" th:errors="*{direction}"></span>
+
+        <h4 th:text="#{formateur.champ.entreprise}"></h4>
+        <input type="text" th:field="*{entreprise}">
+        <span class="erreur" th:if="${#fields.hasErrors('entreprise')}" th:errors="*{entreprise}"></span>
+
+        <h4 th:text="#{formateur.champ.email}"></h4>
+        <input type="email" th:field="*{email}">
+        <span class="erreur" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+
+        <div th:unless="${modeModification}">
+            <h4 th:text="#{formateur.champ.motDePasse}"></h4>
+            <input type="password" th:field="*{motDePasse}">
+            <span class="erreur" th:if="${#fields.hasErrors('motDePasse')}" th:errors="*{motDePasse}"></span>
+            <p class="aide" th:text="#{formateur.champ.motDePasse.aide}"></p>
+        </div>
+
+        <input type="submit" th:value="#{formateur.submit}">
+    </form>
+</div>
+</body>
+</html>

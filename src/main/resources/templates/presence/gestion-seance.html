@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{gestion.seance.titre}"></title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div th:replace="~{layout/fragments :: entete(#{gestion.seance.titre} + ' - ' + ${seance.date})}"></div>
+
+<div class="form-container">
+    <form th:action="@{/formateurs/mes-cycles/{id}/seance(id=${cycleId})}" method="post">
+        <input type="hidden" name="date" th:value="${seance.date}">
+        <table>
+            <tr>
+                <th th:text="#{participant.tableau.nom}"></th>
+                <th th:text="#{gestion.seance.present}"></th>
+                <th th:text="#{gestion.seance.totalAbsences}"></th>
+            </tr>
+            <tr th:each="p : ${seance.presences}">
+                <td th:text="${p.participantNom}"></td>
+                <td><input type="checkbox" name="presents" th:value="${p.participantId}" th:checked="${p.present}"></td>
+                <td th:text="${p.totalAbsencesCycle}"></td>
+            </tr>
+        </table>
+        <input type="submit" th:value="#{gestion.presence.enregistrer}">
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,623 @@
+/* ============================================
+   المركز الوطني للإعلامية — Design System
+   Concept: "سجل رسمي" (Registre officiel)
+   ============================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=IBM+Plex+Sans+Arabic:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap');
+
+:root {
+    --petrol: #0E3D3E;
+    --petrol-light: #17565A;
+    --ink: #12312A;
+    --paper: #F5F3EC;
+    --surface: #FFFFFF;
+    --brass: #B8862F;
+    --brass-deep: #8F6423;
+    --line: #DDD6C7;
+    --line-soft: #EAE5D8;
+    --muted: #7A8683;
+
+    --statut-planifie: #2C6E8E;
+    --statut-encours: #B8862F;
+    --statut-termine: #6B7280;
+    --statut-annule: #A23B3B;
+
+    --font-display: 'Cairo', 'IBM Plex Sans Arabic', sans-serif;
+    --font-body: 'IBM Plex Sans Arabic', 'Segoe UI', sans-serif;
+    --font-mono: 'IBM Plex Mono', monospace;
+
+    --radius: 6px;
+    --shadow-card: 0 1px 2px rgba(18,49,42,0.06), 0 4px 16px rgba(18,49,42,0.06);
+}
+
+* { box-sizing: border-box; }
+
+body {
+    font-family: var(--font-body);
+    background-color: var(--paper);
+    color: var(--ink);
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+
+h1, h2, h3, .page-titre {
+    font-family: var(--font-display);
+    color: var(--petrol);
+    font-weight: 700;
+}
+
+/* ============ NAVBAR ============ */
+
+.navbar {
+    background-color: var(--petrol);
+    background-image:
+        repeating-linear-gradient(45deg, rgba(184,134,47,0.05) 0, rgba(184,134,47,0.05) 1px, transparent 1px, transparent 14px),
+        repeating-linear-gradient(-45deg, rgba(184,134,47,0.05) 0, rgba(184,134,47,0.05) 1px, transparent 1px, transparent 14px);
+    padding: 14px 28px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    border-bottom: 3px solid var(--brass);
+}
+
+.navbar-brand {
+    color: #FDFBF6;
+    text-decoration: none;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.25em;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.navbar-brand::before {
+    content: "";
+    display: inline-block;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    border: 2px solid var(--brass);
+    background:
+        radial-gradient(circle at center, transparent 0 40%, var(--brass) 41% 44%, transparent 45%);
+    flex-shrink: 0;
+}
+
+.navbar-liens {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.navbar-user {
+    color: #D7CDB3;
+    font-size: 0.85em;
+    font-family: var(--font-mono);
+}
+
+.navbar-lien {
+    color: #FDFBF6;
+    text-decoration: none;
+    font-size: 0.95em;
+    border-bottom: 1px solid transparent;
+    padding-bottom: 2px;
+    transition: border-color 0.15s ease;
+}
+
+.navbar-lien:hover { border-color: var(--brass); }
+
+.navbar-logout {
+    background: transparent;
+    color: #FDFBF6;
+    border: 1px solid rgba(253,251,246,0.35);
+    padding: 6px 16px;
+    border-radius: var(--radius);
+    cursor: pointer;
+    font-family: var(--font-body);
+    font-size: 0.9em;
+    transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.navbar-logout:hover {
+    background-color: rgba(162,59,59,0.85);
+    border-color: rgba(162,59,59,0.85);
+}
+
+.page-titre {
+    text-align: center;
+    margin: 28px 0 20px;
+    font-size: 1.7em;
+    position: relative;
+    padding-bottom: 14px;
+}
+
+.page-titre::after {
+    content: "";
+    display: block;
+    width: 64px;
+    height: 3px;
+    background-color: var(--brass);
+    margin: 12px auto 0;
+    border-radius: 2px;
+}
+
+/* ============ BOUTONS ============ */
+
+.actions-bar { text-align: center; margin: 20px 0 28px; }
+
+a.btn, .btn {
+    text-decoration: none;
+    padding: 9px 18px;
+    border-radius: var(--radius);
+    display: inline-block;
+    font-size: 0.92em;
+    font-weight: 500;
+    transition: transform 0.1s ease, box-shadow 0.15s ease;
+    border: 1px solid transparent;
+}
+
+a.btn:hover { transform: translateY(-1px); }
+
+a.ajout, .ajout {
+    background-color: var(--petrol);
+    color: #FDFBF6;
+}
+a.ajout:hover { background-color: var(--petrol-light); box-shadow: var(--shadow-card); }
+
+a.suppr, .suppr {
+    background-color: transparent;
+    color: var(--statut-annule);
+    border-color: var(--statut-annule);
+}
+a.suppr:hover { background-color: var(--statut-annule); color: white; }
+
+a.retour, .retour {
+    background-color: transparent;
+    color: var(--muted);
+    border-color: var(--line);
+}
+a.retour:hover { border-color: var(--muted); }
+
+a.activer {
+    background-color: var(--brass);
+    color: white;
+}
+a.activer:hover { background-color: var(--brass-deep); }
+
+/* ============ CARTES / CONTENEURS ============ */
+
+.form-container, .menu-container, .chat-container {
+    max-width: 560px;
+    margin: 36px auto;
+    background-color: var(--surface);
+    padding: 34px;
+    border-radius: var(--radius);
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow-card);
+}
+
+/* ============ FORMULAIRES ============ */
+
+h4 {
+    font-size: 0.85em;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin: 18px 0 4px;
+    font-weight: 600;
+}
+
+input[type=text], input[type=email], input[type=password],
+input[type=date], select {
+    width: 100%;
+    padding: 11px 14px;
+    margin: 2px 0 6px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-sizing: border-box;
+    font-family: var(--font-body);
+    font-size: 0.98em;
+    background-color: #FEFDFA;
+    color: var(--ink);
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+input:focus, select:focus {
+    outline: none;
+    border-color: var(--petrol);
+    box-shadow: 0 0 0 3px rgba(14,61,62,0.12);
+}
+
+select[multiple] { height: 130px; }
+
+input[type=submit], button[type=submit] {
+    width: 100%;
+    background-color: var(--petrol);
+    color: #FDFBF6;
+    padding: 13px 20px;
+    margin: 14px 0 0;
+    border: none;
+    border-radius: var(--radius);
+    cursor: pointer;
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 1em;
+    transition: background-color 0.15s ease;
+}
+
+input[type=submit]:hover, button[type=submit]:hover {
+    background-color: var(--petrol-light);
+}
+
+.erreur {
+    color: var(--statut-annule);
+    font-size: 0.85em;
+    display: block;
+    margin-bottom: 6px;
+}
+
+.info { color: var(--statut-planifie); text-align: center; }
+.aide { color: var(--muted); font-size: 0.85em; }
+
+/* ============ TABLEAUX (registre) ============ */
+
+table {
+    width: 95%;
+    max-width: 1100px;
+    margin: 10px auto 40px;
+    border-collapse: collapse;
+    background: var(--surface);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-card);
+}
+
+th {
+    background-color: var(--petrol);
+    color: #FDFBF6;
+    font-weight: 600;
+    font-size: 0.88em;
+    padding: 12px 10px;
+    text-align: center;
+}
+
+td {
+    border-bottom: 1px solid var(--line-soft);
+    padding: 11px 10px;
+    text-align: center;
+    font-size: 0.94em;
+}
+
+tr:last-child td { border-bottom: none; }
+tr:nth-child(even) td { background-color: #FBFAF6; }
+
+/* Colonnes de type "numéro de registre" */
+td:first-child { font-family: var(--font-mono); color: var(--muted); }
+
+/* ============ SCEAUX DE STATUT ============ */
+
+.statut {
+    padding: 5px 14px;
+    border-radius: 999px;
+    color: white;
+    font-size: 0.78em;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    border: 1px solid rgba(255,255,255,0.4);
+    display: inline-block;
+}
+
+.PLANIFIE  { background-color: var(--statut-planifie); }
+.EN_COURS  { background-color: var(--statut-encours); }
+.TERMINE   { background-color: var(--statut-termine); }
+.ANNULE    { background-color: var(--statut-annule); }
+
+/* ============ PAGES D'ERREUR / VIDE ============ */
+
+.vide {
+    text-align: center;
+    color: var(--muted);
+    margin: 50px;
+    font-style: italic;
+}
+
+/* ============ MENU PRINCIPAL ============ */
+
+.menu-liens {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 24px;
+}
+
+.menu-btn, .menu-btn-logout {
+    display: block;
+    width: 100%;
+    padding: 13px 20px;
+    text-align: center;
+    text-decoration: none;
+    border: none;
+    border-radius: var(--radius);
+    font-size: 0.98em;
+    font-weight: 500;
+    cursor: pointer;
+    box-sizing: border-box;
+    transition: background-color 0.15s ease;
+}
+
+.menu-btn {
+    background-color: var(--petrol);
+    color: #FDFBF6;
+}
+.menu-btn:hover { background-color: var(--petrol-light); }
+
+.menu-btn-logout {
+    background-color: transparent;
+    color: var(--statut-annule);
+    border: 1px solid var(--statut-annule);
+}
+.menu-btn-logout:hover { background-color: var(--statut-annule); color: white; }
+
+/* ============ CHATBOT ============ */
+
+.chat-container {
+    max-width: 620px;
+    display: flex;
+    flex-direction: column;
+    height: 68vh;
+    padding: 0;
+    overflow: hidden;
+}
+
+.chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    background-color: #FBFAF6;
+}
+
+.message {
+    padding: 11px 16px;
+    border-radius: 12px;
+    max-width: 78%;
+    line-height: 1.55;
+    font-size: 0.95em;
+}
+
+.message-utilisateur {
+    background-color: var(--petrol);
+    color: white;
+    align-self: flex-end;
+    border-bottom-left-radius: 3px;
+}
+
+.message-bot {
+    background-color: var(--surface);
+    color: var(--ink);
+    align-self: flex-start;
+    border: 1px solid var(--line);
+    border-bottom-right-radius: 3px;
+}
+
+.chat-input-zone {
+    display: flex;
+    padding: 16px;
+    border-top: 1px solid var(--line);
+    gap: 10px;
+    background: var(--surface);
+}
+
+.chat-input-zone input {
+    flex: 1;
+    margin: 0;
+}
+
+.chat-input-zone button {
+    background-color: var(--petrol);
+    color: white;
+    border: none;
+    padding: 0 22px;
+    border-radius: var(--radius);
+    cursor: pointer;
+    font-family: var(--font-body);
+    font-weight: 600;
+}
+.chat-input-zone button:hover { background-color: var(--petrol-light); }
+
+.chargement { color: var(--muted); font-style: italic; }
+
+/* ============ RESPONSIVE ============ */
+
+@media (max-width: 640px) {
+    .navbar { flex-direction: column; gap: 10px; align-items: flex-start; }
+    .form-container, .menu-container { padding: 22px; margin: 20px 14px; }
+    table { width: 100%; font-size: 0.85em; }
+}
+
+/* Respect du mode "réduire les animations" */
+@media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; }
+}
+/* ============ AUTHENTIFICATION ============ */
+
+body.page-auth {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background: linear-gradient(160deg, var(--petrol) 0%, var(--petrol) 42%, var(--paper) 42%);
+    margin: 0;
+}
+
+.auth-shell {
+    display: flex;
+    max-width: 780px;
+    width: 92%;
+    background: var(--surface);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(18,49,42,0.18);
+}
+
+.auth-brand {
+    background-color: var(--petrol);
+    background-image:
+        repeating-linear-gradient(45deg, rgba(184,134,47,0.06) 0, rgba(184,134,47,0.06) 1px, transparent 1px, transparent 14px),
+        repeating-linear-gradient(-45deg, rgba(184,134,47,0.06) 0, rgba(184,134,47,0.06) 1px, transparent 1px, transparent 14px);
+    color: #FDFBF6;
+    flex: 0 0 42%;
+    padding: 40px 28px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border-inline-end: 3px solid var(--brass);
+}
+
+.auth-logo {
+    max-width: 96px;
+    max-height: 96px;
+    margin-bottom: 18px;
+    border-radius: 8px;
+    background: #FDFBF6;
+    padding: 8px;
+    object-fit: contain;
+}
+
+.auth-brand-titre {
+    color: #FDFBF6;
+    font-size: 1.15em;
+    margin: 0 0 6px;
+}
+
+.auth-brand-sous {
+    color: #D7CDB3;
+    font-size: 0.85em;
+    margin: 0;
+}
+
+.auth-form-panel {
+    flex: 1;
+    padding: 40px 34px;
+}
+
+.auth-titre {
+    margin: 0 0 20px;
+    font-size: 1.3em;
+    text-align: center;
+}
+
+.auth-separateur {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.85em;
+    margin: 20px 0 16px;
+}
+.auth-separateur::before, .auth-separateur::after {
+    content: "";
+    flex: 1;
+    border-bottom: 1px solid var(--line);
+}
+.auth-separateur span { padding: 0 12px; }
+
+.auth-lien-inscription {
+    display: block;
+    text-align: center;
+    padding: 11px;
+    border: 1px solid var(--petrol);
+    color: var(--petrol);
+    border-radius: var(--radius);
+    text-decoration: none;
+    font-weight: 500;
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+.auth-lien-inscription:hover {
+    background-color: var(--petrol);
+    color: #FDFBF6;
+}
+
+@media (max-width: 640px) {
+    .auth-shell { flex-direction: column; }
+    .auth-brand { border-inline-end: none; border-bottom: 3px solid var(--brass); padding: 30px 20px; }
+}
+
+.footer-langue {
+    text-align: center;
+    padding: 20px 0;
+    color: var(--muted);
+    font-size: 0.85em;
+}
+
+.footer-langue a {
+    color: var(--petrol);
+    text-decoration: none;
+}
+
+.footer-langue a:hover {
+    text-decoration: underline;
+}
+
+.dashboard-cartes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    justify-content: center;
+    margin: 24px auto;
+    max-width: 1100px;
+}
+
+.carte-stat {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 20px 28px;
+    text-align: center;
+    box-shadow: var(--shadow-card);
+    min-width: 150px;
+}
+
+.carte-alerte {
+    border-color: var(--brass);
+    background: #FBF6EC;
+}
+
+.carte-valeur {
+    font-size: 1.8em;
+    font-weight: 700;
+    color: var(--petrol);
+    font-family: var(--font-mono);
+}
+
+.carte-label {
+    color: var(--muted);
+    font-size: 0.85em;
+    margin-top: 4px;
+}
+
+.dashboard-graphiques {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    justify-content: center;
+    max-width: 1100px;
+    margin: 24px auto 40px;
+}
+
+.graphique-conteneur {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 20px;
+    box-shadow: var(--shadow-card);
+    width: 420px;
+    max-width: 100%;
+}
+

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{absence.admin.titre}"></title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div th:replace="~{layout/fragments :: entete(#{absence.admin.titre})}"></div>
+
+<table>
+    <tr>
+        <th th:text="#{participant.tableau.nom}"></th>
+        <th th:text="#{cycle.tableau.theme}"></th>
+        <th th:text="#{absence.tableau.description}"></th>
+        <th th:text="#{absence.tableau.fichier}"></th>
+        <th th:text="#{absence.tableau.date}"></th>
+        <th th:text="#{absence.tableau.statut}"></th>
+        <th th:text="#{formateur.tableau.action}"></th>
+    </tr>
+    <tr th:each="j : ${justificatifs}">
+        <td th:text="${j.participantNom}"></td>
+        <td th:text="${j.cycleTheme}"></td>
+        <td th:text="${j.description}"></td>
+        <td>
+            <a th:if="${j.possedeFichier}" th:href="@{/mes-absences/fichier/{id}(id=${j.id})}" th:text="${j.nomFichier}"></a>
+        </td>
+        <td th:text="${j.dateDepot}"></td>
+        <td><span class="statut" th:classappend="${j.statut}" th:text="#{'justificatif.statut.' + ${j.statut}}"></span></td>
+        <td>
+            <form th:if="${j.statut.name() == 'EN_ATTENTE'}" th:action="@{/admin/justificatifs/{id}/traiter(id=${j.id})}" method="post" style="display:inline">
+                <input type="hidden" name="commentaire" th:id="'commentaire-' + ${j.id}">
+                <button type="submit" name="accepter" value="true" class="btn ajout" th:text="#{absence.accepter}"></button>
+                <button type="submit" name="accepter" value="false" class="btn suppr" th:text="#{absence.refuser}"></button>
+            </form>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

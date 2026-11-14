@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${modeModification} ? #{cycle.formulaire.titre.modif} : #{cycle.formulaire.titre.ajout}"></title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+</head>
+<div class="form-container" th:if="${modeModification}">
+    <h3 style="text-align:center" th:text="#{cycle.participantsInscrits.titre}"></h3>
+
+    <table th:if="${not #lists.isEmpty(participantsDuCycle)}">
+        <tr>
+            <th th:text="#{participant.tableau.nom}"></th>
+            <th th:text="#{participant.tableau.email}"></th>
+            <th th:text="#{formateur.tableau.action}"></th>
+        </tr>
+        <tr th:each="p : ${participantsDuCycle}">
+            <td th:text="${p.nomPrenom}"></td>
+            <td th:text="${p.compte != null ? p.compte.email : ''}"></td>
+            <td>
+                <a class="btn ajout" th:href="@{/participants/modifier/{id}(id=${p.id})}" th:text="#{formateur.modifier}"></a>
+            </td>
+        </tr>
+    </table>
+    <p class="vide" th:if="${#lists.isEmpty(participantsDuCycle)}" th:text="#{cycle.participantsInscrits.vide}"></p>
+
+    <div class="actions-bar">
+        <a class="btn ajout" th:href="@{/participants}" th:text="#{cycle.participantsInscrits.gererTous}"></a>
+    </div>
+</div>
+<script th:inline="javascript">
+    document.getElementById('btnGenererDescription')?.addEventListener('click', async () => {
+        const theme = document.getElementById('champTheme').value;
+        if (!theme) { alert('اكتب عنوان الدورة أولا'); return; }
+
+        const zone = document.getElementById('zoneDescriptionGeneree');
+        zone.style.display = 'block';
+        zone.textContent = 'جاري التوليد...';
+
+        const csrfToken = document.querySelector('meta[name="_csrf"]')?.content;
+        const csrfHeader = document.querySelector('meta[name="_csrf_header"]')?.content;
+        const headers = { 'Content-Type': 'application/json' };
+        if (csrfToken && csrfHeader) headers[csrfHeader] = csrfToken;
+
+        const reponse = await fetch('/chatbot/generer-description', {
+            method: 'POST',
+            headers: headers,
+            body: JSON.stringify({ theme: theme, motsClefs: '' })
+        });
+        const data = await reponse.json();
+        zone.textContent = data.reponse;
+    });
+</script>
+<body>
+<div th:replace="~{layout/fragments :: entete(${modeModification} ? #{cycle.formulaire.titre.modif} : #{cycle.formulaire.titre.ajout})}"></div>
+
+<div class="form-container">
+    <form th:action="${modeModification} ? @{/cycles/modifier/{id}(id=${cycle.id})} : @{/cycles/enregistrer}"
+          th:object="${cycle}" method="post">
+
+        <h4 th:text="#{cycle.champ.theme}"></h4>
+        <input type="text" th:field="*{theme}" id="champTheme">
+        <span class="erreur" th:if="${#fields.hasErrors('theme')}" th:errors="*{theme}"></span>
+
+        <button type="button" id="btnGenererDescription" class="btn ajout" style="margin-top:8px;" th:text="#{cycle.assistantIA.bouton}"></button>
+        <div id="zoneDescriptionGeneree" style="display:none; margin-top:10px; padding:12px; background:#FBFAF6; border:1px solid var(--line); border-radius:var(--radius);"></div>
+        <h4 th:text="#{cycle.champ.dateDeb}"></h4>
+        <input type="date" th:field="*{dateDeb}">
+        <span class="erreur" th:if="${#fields.hasErrors('dateDeb')}" th:errors="*{dateDeb}"></span>
+
+        <h4 th:text="#{cycle.champ.dateFin}"></h4>
+        <input type="date" th:field="*{dateFin}">
+        <span class="erreur" th:if="${#fields.hasErrors('dateFin')}" th:errors="*{dateFin}"></span>
+
+        <h4 th:text="#{cycle.champ.salle}"></h4>
+        <select th:field="*{salleId}">
+            <option value="" th:text="#{cycle.champ.salle.choisir}"></option>
+            <option th:each="s : ${salles}" th:value="${s.id}" th:text="${s.nom}"></option>
+        </select>
+        <span class="erreur" th:if="${#fields.hasErrors('salleId')}" th:errors="*{salleId}"></span>
+
+
+        <h4 th:text="#{cycle.champ.formateurs}"></h4>
+        <p class="aide" th:text="#{cycle.champ.formateurs.aide}"></p>
+        <select th:field="*{formateurIds}" multiple="multiple">
+            <option th:each="f : ${formateurs}" th:value="${f.id}" th:text="${f.nomPrenom}"></option>
+        </select>
+        <span class="erreur" th:if="${#fields.hasErrors('formateurIds')}" th:errors="*{formateurIds}"></span>
+
+        <input type="submit" th:value="#{cycle.submit}">
+    </form>
+</div>
+</body>
+</html>

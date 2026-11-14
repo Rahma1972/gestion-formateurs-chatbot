@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{mesformations.titre}"></title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div th:replace="~{layout/fragments :: entete(#{mesformations.titre})}"></div>
+
+<h3 style="text-align:center" th:text="#{mesformations.disponibles}"></h3>
+<table>
+    <tr>
+        <th th:text="#{cycle.tableau.theme}"></th>
+        <th th:text="#{cycle.tableau.dateDeb}"></th>
+        <th th:text="#{cycle.tableau.dateFin}"></th>
+        <th th:text="#{cycle.tableau.salle}"></th>
+        <th th:text="#{mesformations.placesRestantes}"></th>
+        <th th:text="#{formateur.tableau.action}"></th>
+    </tr>
+    <tr th:each="c : ${cyclesDisponibles}">
+        <td th:text="${c.theme}"></td>
+        <td th:text="${c.dateDeb}"></td>
+        <td th:text="${c.dateFin}"></td>
+        <td th:text="${c.salleNom}"></td>
+        <td th:text="${c.placesRestantes}"></td>
+        <td>
+            <span th:if="${c.dejaInscrit}" th:text="#{mesformations.dejaInscrit}"></span>
+            <form th:if="${not c.dejaInscrit and c.placesRestantes > 0}" th:action="@{/mes-formations/inscrire/{id}(id=${c.id})}" method="post" style="display:inline">
+                <button type="submit" class="btn ajout" th:text="#{mesformations.sinscrire}"></button>
+            </form>
+            <span th:if="${not c.dejaInscrit and c.placesRestantes == 0}" th:text="#{mesformations.complet}"></span>
+        </td>
+    </tr>
+</table>
+
+<h3 style="text-align:center" th:text="#{mesformations.historique}"></h3>
+<table>
+    <tr>
+        <th th:text="#{cycle.tableau.theme}"></th>
+        <th th:text="#{cycle.tableau.dateDeb}"></th>
+        <th th:text="#{cycle.tableau.dateFin}"></th>
+        <th th:text="#{admin.attente.date}"></th>
+        <th th:text="#{cycle.tableau.statut}"></th>
+        <th th:text="#{formateur.tableau.action}"></th>
+    </tr>
+    <tr th:each="h : ${historique}">
+        <td th:text="${h.cycleTheme}"></td>
+        <td th:text="${h.dateDeb}"></td>
+        <td th:text="${h.dateFin}"></td>
+        <td th:text="${h.dateInscription}"></td>
+        <td th:text="#{'inscription.statut.' + ${h.statut}}"></td>
+        <td>
+            <!-- Option d'annulation pour les cycles en cours et inscription active -->
+            <form th:if="${not h.cycleTermine and h.statut.name() == 'ACTIVE'}" th:action="@{/mes-formations/annuler/{id}(id=${h.id})}" method="post" style="display:inline">
+                <button type="submit" class="btn suppr" th:text="#{mesformations.annuler}"></button>
+            </form>
+
+            <!-- Attestation de formation -->
+            <a th:if="${h.cycleTermine and h.eligibleAttestation}" class="btn ajout" th:href="@{/mes-formations/attestation/{id}(id=${h.cycleId})}" th:text="#{mesformations.attestation}"></a>
+            <span th:if="${h.cycleTermine and not h.eligibleAttestation}" th:text="#{mesformations.nonEligible}"></span>
+
+            <!-- Évaluation du cycle -->
+            <a th:if="${h.cycleTermine and not h.dejaEvalue}" class="btn ajout" th:href="@{/mes-formations/evaluer/{id}(id=${h.cycleId})}" th:text="#{evaluation.evaluer}"></a>
+            <span th:if="${h.cycleTermine and h.dejaEvalue}" th:text="#{evaluation.dejaEvalue}"></span>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

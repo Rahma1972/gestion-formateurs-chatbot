@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{participant.inscription.titre}"></title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<h2 style="text-align:center" th:text="#{navbar.brand}"></h2>
+<h1 style="text-align:center" th:text="#{participant.inscription.titre}"></h1>
+
+<div class="form-container">
+    <form th:action="@{/inscription}" th:object="${participant}" method="post">
+
+        <h4 th:text="#{participant.champ.nomPrenom}"></h4>
+        <input type="text" th:field="*{nomPrenom}">
+        <span class="erreur" th:if="${#fields.hasErrors('nomPrenom')}" th:errors="*{nomPrenom}"></span>
+
+        <h4 th:text="#{participant.champ.cin}"></h4>
+        <input type="text" th:field="*{cin}">
+        <span class="erreur" th:if="${#fields.hasErrors('cin')}" th:errors="*{cin}"></span>
+
+        <h4 th:text="#{participant.champ.entreprise}"></h4>
+        <input type="text" th:field="*{entreprise}">
+        <span class="erreur" th:if="${#fields.hasErrors('entreprise')}" th:errors="*{entreprise}"></span>
+
+        <h4 th:text="#{participant.champ.telFix}"></h4>
+        <input type="text" th:field="*{telFix}">
+
+        <h4 th:text="#{participant.champ.fax}"></h4>
+        <input type="text" th:field="*{fax}">
+
+        <h4 th:text="#{participant.champ.telPort}"></h4>
+        <input type="text" th:field="*{telPort}">
+
+        <h4 th:text="#{participant.champ.mail}"></h4>
+        <input type="text" th:field="*{mail}">
+        <span class="erreur" th:if="${#fields.hasErrors('mail')}" th:errors="*{mail}"></span>
+
+
+        <h4 th:text="#{participant.champ.email}"></h4>
+        <input type="email" th:field="*{email}">
+        <span class="erreur" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+
+        <h4 th:text="#{participant.champ.motDePasse}"></h4>
+        <input type="password" th:field="*{motDePasse}">
+        <span class="erreur" th:if="${#fields.hasErrors('motDePasse')}" th:errors="*{motDePasse}"></span>
+
+        <input type="submit" th:value="#{participant.submit}">
+    </form>
+
+    <p style="text-align:center; margin-top:16px;">
+        <a th:href="@{/login}" style="color:var(--petrol); font-size:0.9em;" th:text="#{participant.inscription.dejaCompte}"></a>
+    </p>
+</div>
+</body>
+</html>

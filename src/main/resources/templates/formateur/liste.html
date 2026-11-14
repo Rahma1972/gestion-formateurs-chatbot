@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{formateur.liste.titre}"></title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div th:replace="~{layout/fragments :: entete(${#authorization.expression('hasRole(''ADMIN'')')} ? #{formateur.liste.titre} : #{formateur.mesinfos.titre})}"></div>
+
+<div class="form-container" style="max-width:500px; padding:16px;" sec:authorize="hasRole('ADMIN')">
+    <form th:action="@{/formateurs}" method="get" style="display:flex; gap:8px;">
+        <input type="text" name="recherche" th:value="${recherche}" th:placeholder="#{recherche.placeholder}" style="flex:1; margin:0;">
+        <input type="submit" th:value="#{recherche.bouton}" style="width:auto; margin:0;">
+    </form>
+</div>
+<div class="actions-bar" sec:authorize="hasRole('ADMIN')">
+    <a class="btn ajout" th:href="@{/formateurs/nouveau}" th:text="#{formateur.ajouter}"></a>
+</div>
+
+<table>
+    <tr>
+        <th th:text="#{formateur.tableau.id}"></th>
+        <th th:text="#{formateur.tableau.nom}"></th>
+        <th th:text="#{formateur.tableau.specialite}"></th>
+        <th th:text="#{formateur.tableau.direction}"></th>
+        <th th:text="#{formateur.tableau.entreprise}"></th>
+        <th th:text="#{formateur.tableau.email}"></th>
+        <th th:text="#{formateur.tableau.action}"></th>
+    </tr>
+    <tr th:each="f : ${formateurs}">
+        <td th:text="${f.id}"></td>
+        <td th:text="${f.nomPrenom}"></td>
+        <td th:text="${f.specialite}"></td>
+        <td th:text="${f.direction}"></td>
+        <td th:text="${f.entreprise}"></td>
+        <td th:text="${f.email}"></td>
+        <td>
+            <a class="btn ajout"
+               th:if="${#authentication.name == f.email or #authorization.expression('hasRole(''ADMIN'')')}"
+               th:href="@{/formateurs/modifier/{id}(id=${f.id})}" th:text="#{formateur.modifier}"></a>
+            <a class="btn suppr" sec:authorize="hasRole('ADMIN')" th:href="@{/formateurs/supprimer/{id}(id=${f.id})}" th:text="#{formateur.supprimer}"></a>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

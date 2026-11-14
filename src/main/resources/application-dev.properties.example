@@ -1,0 +1,4 @@
+spring.datasource.url=jdbc:mariadb://localhost:3306/bd_formation?useUnicode=true&characterEncoding=UTF-8
+spring.datasource.username=votre_utilisateur
+spring.datasource.password=votre_mot_de_passe
+spring.datasource.driver-class-name=org.mariadb.jdbc.Driver

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{cv.titre}"></title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div th:replace="~{layout/fragments :: entete(#{cv.titre})}"></div>
+
+<div class="form-container">
+    <p class="aide" th:text="#{cv.confidentialite}"></p>
+    <p class="aide" style="color:var(--brass-deep); font-weight:600;" th:text="#{chatbot.avertissement}"></p>
+
+    <form th:action="@{/chatbot/analyser-cv}" method="post" enctype="multipart/form-data">
+        <h4 th:text="#{cv.langue}"></h4>
+        <select name="langue" required>
+            <option value="ar" th:text="#{cv.langue.ar}"></option>
+            <option value="fr" th:text="#{cv.langue.fr}"></option>
+        </select>
+
+        <h4 th:text="#{cv.champ.fichier}"></h4>
+        <input type="file" name="fichier" accept=".pdf">
+
+        <h4 th:text="#{cv.champ.texte}"></h4>
+        <textarea name="texteCv" rows="6" style="width:100%; padding:10px; border:1px solid var(--line); border-radius:var(--radius);"></textarea>
+
+        <input type="submit" th:value="#{cv.submit}">
+    </form>
+
+    <div th:if="${resultat}"
+         style="margin-top:20px; padding:16px; background:#FBFAF6; border:1px solid var(--line); border-radius:var(--radius); white-space:pre-line;"
+         th:text="${resultat}"></div>
+</div>
+</body>
+</html>

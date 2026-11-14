@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{participant.inscription.succes.titre}"></title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="menu-container" style="text-align:center">
+    <h1 style="color:#4CAF50" th:text="#{participant.inscription.succes.titre}"></h1>
+    <p th:text="#{participant.inscription.succes.texte}"></p>
+    <a class="menu-btn" th:href="@{/login}" style="display:inline-block; text-decoration:none; margin-top:20px;" th:text="#{participant.inscription.succes.lien}"></a>
+</div>
+</body>
+</html>

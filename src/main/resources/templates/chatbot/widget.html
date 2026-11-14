@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <title th:text="#{chatbot.titre}"></title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+
+
+</head>
+<body>
+<div th:replace="~{layout/fragments :: entete(#{chatbot.titre})}"></div>
+<div style="max-width:620px; margin:16px auto 0; padding:10px 16px; background:#FBF6EC; border:1px solid var(--brass); border-radius:var(--radius); font-size:0.85em; color:var(--muted); text-align:center;">
+    <span th:text="#{chatbot.avertissement}"></span>
+</div>
+<div class="chat-container">
+    <div class="chat-messages" id="chatMessages">
+        <div class="message message-bot" th:text="#{chatbot.accueil}"></div>
+    </div>
+    <div class="chat-input-zone">
+        <input type="text" id="messageInput" th:placeholder="#{chatbot.placeholder}">
+        <button id="envoyerBtn" th:text="#{chatbot.envoyer}"></button>
+    </div>
+</div>
+
+<script th:src="@{/js/chatbot.js}"></script>
+</body>
+</html>

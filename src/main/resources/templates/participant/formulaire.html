@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{participant.formulaire.titre}"></title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div th:replace="~{layout/fragments :: entete(#{participant.formulaire.titre})}"></div>
+
+<div class="form-container">
+    <form th:action="@{/participants/modifier/{id}(id=${participant.id})}" th:object="${participant}" method="post">
+
+        <h4 th:text="#{participant.champ.nomPrenom}"></h4>
+        <input type="text" th:field="*{nomPrenom}">
+        <span class="erreur" th:if="${#fields.hasErrors('nomPrenom')}" th:errors="*{nomPrenom}"></span>
+
+        <h4 th:text="#{participant.champ.cin}"></h4>
+        <input type="text" th:field="*{cin}">
+        <span class="erreur" th:if="${#fields.hasErrors('cin')}" th:errors="*{cin}"></span>
+
+        <h4 th:text="#{participant.champ.entreprise}"></h4>
+        <input type="text" th:field="*{entreprise}">
+        <span class="erreur" th:if="${#fields.hasErrors('entreprise')}" th:errors="*{entreprise}"></span>
+
+        <h4 th:text="#{participant.champ.telFix}"></h4>
+        <input type="text" th:field="*{telFix}">
+
+        <h4 th:text="#{participant.champ.fax}"></h4>
+        <input type="text" th:field="*{fax}">
+
+        <h4 th:text="#{participant.champ.telPort}"></h4>
+        <input type="text" th:field="*{telPort}">
+
+        <h4 th:text="#{participant.champ.mail}"></h4>
+        <input type="text" th:field="*{mail}">
+        <span class="erreur" th:if="${#fields.hasErrors('mail')}" th:errors="*{mail}"></span>
+
+
+        <input type="submit" th:value="#{participant.modifier.submit}">
+    </form>
+</div>
+</body>
+</html>

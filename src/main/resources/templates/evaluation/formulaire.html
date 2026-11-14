@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{evaluation.titre}"></title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div th:replace="~{layout/fragments :: entete(#{evaluation.titre})}"></div>
+
+<div class="form-container">
+    <form th:action="@{/mes-formations/evaluer/{id}(id=${cycleId})}" method="post">
+        <h4 th:text="#{evaluation.note}"></h4>
+        <select name="note" required>
+            <option value="5" th:text="#{evaluation.note.5}"></option>
+            <option value="4" th:text="#{evaluation.note.4}"></option>
+            <option value="3" th:text="#{evaluation.note.3}"></option>
+            <option value="2" th:text="#{evaluation.note.2}"></option>
+            <option value="1" th:text="#{evaluation.note.1}"></option>
+        </select>
+
+        <h4 th:text="#{evaluation.commentaire}"></h4>
+        <textarea name="commentaire" rows="4" style="width:100%; padding:10px; border:1px solid var(--line); border-radius:var(--radius);"></textarea>
+
+        <input type="submit" th:value="#{evaluation.submit}">
+    </form>
+</div>
+</body>
+</html>

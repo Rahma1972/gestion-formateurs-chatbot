@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+</head>
+<body>
+
+<div th:fragment="entete(titre)">
+    <nav class="navbar">
+        <a th:href="@{/menu}" class="navbar-brand" th:text="#{navbar.brand}"></a>
+        <div class="navbar-liens">
+        <span sec:authorize="isAuthenticated()" class="navbar-user">
+            <span sec:authentication="name"></span>
+        </span>
+            <a th:href="@{/menu}" class="navbar-lien" th:text="#{navbar.accueil}"></a>
+            <form th:action="@{/logout}" method="post" style="display:inline">
+                <button type="submit" class="navbar-logout" th:text="#{navbar.logout}"></button>
+            </form>
+        </div>
+    </nav>
+    <h1 class="page-titre" th:text="${titre}"></h1>
+</div>
+<div th:fragment="piedDePage" class="footer-langue">
+    <a th:href="@{''(lang='ar')}">AR</a> | <a th:href="@{''(lang='fr')}">FR</a>
+</div>
+
+</body>
+</html>

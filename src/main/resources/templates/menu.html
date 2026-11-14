@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{menu.titre}"></title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="menu-container">
+    <h2 style="text-align:center" th:text="#{navbar.brand}"></h2>
+    <h3 style="text-align:center" th:text="#{navbar.sous.titre}"></h3>
+    <h1 style="text-align:center" th:text="#{menu.titre}"></h1>
+
+    <p style="text-align:center">
+        <span th:text="#{menu.bienvenue}"></span> <strong th:text="${email}"></strong>
+        (<span th:text="${role}"></span>)
+    </p>
+
+    <div th:replace="~{layout/fragments :: piedDePage}"></div>
+
+    <div class="menu-liens">
+        <a th:href="@{/cycles}" class="menu-btn" sec:authorize="hasAnyRole('ADMIN','FORMATEUR')">
+            <span th:text="${role == 'ADMIN'} ? #{menu.cycles.admin} : #{menu.cycles.formateur}"></span>
+        </a>
+        <a th:href="@{/formateurs}" class="menu-btn" sec:authorize="hasAnyRole('ADMIN','FORMATEUR')">
+            <span th:text="${role == 'ADMIN'} ? #{menu.formateurs.admin} : #{menu.formateurs.formateur}"></span>
+        </a>
+        <a sec:authorize="hasRole('FORMATEUR')" th:href="@{/formateurs/mes-cycles}" class="menu-btn" th:text="#{mescycles.titre}"></a>
+        <a sec:authorize="hasAnyRole('ADMIN','PARTICIPANT')" th:href="@{/participants}" class="menu-btn">
+            <span th:text="${role == 'ADMIN'} ? #{menu.participants.admin} : #{menu.participants.participant}"></span>
+        </a>
+        <a sec:authorize="hasRole('ADMIN')" th:href="@{/admin/utilisateurs}" class="menu-btn" th:text="#{menu.comptes}"></a>
+        <a sec:authorize="hasRole('ADMIN')" th:href="@{/salles}" class="menu-btn" th:text="#{menu.salles}"></a>
+        <a sec:authorize="hasRole('PARTICIPANT')" th:href="@{/chatbot}" class="menu-btn" th:text="#{menu.assistant}"></a>
+        <a th:href="@{/mon-compte/mot-de-passe}" class="menu-btn" th:text="#{menu.mot_de_passe}"></a>
+        <a sec:authorize="hasRole('PARTICIPANT')" th:href="@{/mes-absences}" class="menu-btn" th:text="#{absence.mesabsences.titre}"></a>
+        <a sec:authorize="hasRole('ADMIN')" th:href="@{/admin/justificatifs}" class="menu-btn" th:text="#{absence.admin.titre}"></a>
+        <a sec:authorize="hasRole('PARTICIPANT')" th:href="@{/mes-formations}" class="menu-btn" th:text="#{mesformations.titre}"></a>
+        <a sec:authorize="hasRole('ADMIN')" th:href="@{/admin/dashboard}" class="menu-btn" th:text="#{dashboard.titre}"></a>
+        <a sec:authorize="hasRole('PARTICIPANT')" th:href="@{/chatbot/analyser-cv}" class="menu-btn" th:text="#{cv.titre}"></a>
+        <form th:action="@{/logout}" method="post">
+            <input type="submit" th:value="#{menu.logout}" class="menu-btn-logout">
+        </form>
+    </div>
+</div>
+</body>
+</html>

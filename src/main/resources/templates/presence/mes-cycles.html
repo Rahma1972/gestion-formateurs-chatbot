@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{mescycles.titre}"></title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div th:replace="~{layout/fragments :: entete(#{mescycles.titre})}"></div>
+
+<table>
+    <tr>
+        <th th:text="#{cycle.tableau.theme}"></th>
+        <th th:text="#{cycle.tableau.dateDeb}"></th>
+        <th th:text="#{cycle.tableau.dateFin}"></th>
+        <th th:text="#{cycle.tableau.action}"></th>
+    </tr>
+    <tr th:each="c : ${cycles}">
+        <td th:text="${c.theme}"></td>
+        <td th:text="${c.dateDeb}"></td>
+        <td th:text="${c.dateFin}"></td>
+        <td>
+            <a class="btn ajout" th:href="@{/formateurs/mes-cycles/{id}(id=${c.id})}" th:text="#{mescycles.gerer}"></a>
+        </td>
+    </tr>
+</table>
+</body>
+</html>
