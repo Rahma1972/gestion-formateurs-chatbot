@@ -130,5 +130,5 @@ docs/              captures, diagrammes
 
 ## Auteure
 **Rahma** — Élève ingénieure, ENICarthage
-[LinkedIn](www.linkedin.com/in/tobji-rahma-4b1029411) · [GitHub](https://github.com/Rahma1972)
+[LinkedIn](https://linkedin.com/in/tobji-rahma-4b1029411) · [GitHub](https://github.com/Rahma1972)
 
