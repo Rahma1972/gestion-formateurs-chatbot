@@ -95,14 +95,7 @@ mvn spring-boot:run
 ```
 Application : <http://localhost:8080>
 
-### Comptes de démonstration
-| Rôle | Email | Mot de passe |
-|---|---|---|
-| Admin | admin@cfd.tn | Admin@2026 |
-| Formateur | *(voir données de démo)* | Formateur@2026 |
-| Participant | *(voir données de démo)* | Participant@2026 |
 
-> Comptes de démonstration uniquement. À changer en production.
 
 ---
 
