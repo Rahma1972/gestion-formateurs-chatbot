@@ -12,16 +12,15 @@ Projet réalisé dans le cadre d'un **stage ingénieur** (ENICarthage – CNI, U
 Il reconstruit une application PHP vulnérable en une architecture Java sécurisée et maintenable.
 
 ---
-
 ##  Aperçu
 
-| Tableau de bord admin | Mes formations (participant) |
+| Tableau de bord admin | Gestion des cycles |
 |---|---|
 | ![dashboard](docs/screenshots/tableau_de_bord.png) | ![formations](docs/screenshots/liste_cycles.png) |
 
-| Assistant intelligent | 
+| Assistant intelligent | Gestion des formateurs |
 |---|---|
-| ![chatbot](docs/screenshots/resultat_analyse.png) | 
+| ![chatbot](docs/screenshots/resultat_analyse.png) | ![formateurs](docs/screenshots/liste_formateurs.png) |
 
 
 
