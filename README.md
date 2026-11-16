@@ -89,8 +89,8 @@ Java 21 · Spring Boot 3.3.4 · Spring Security · Spring Data JPA/Hibernate · 
 
 ### Étapes
 ```bash
-git clone https://github.com/<votre-compte>/<votre-depot>.git
-cd <votre-depot>
+git clone https://github.com/Rahma1972/gestion-formateurs-chatbot.git
+cd gestion-formateurs-chatbot
 
 # 1. Créer la base
 mysql -u root -p -e "CREATE DATABASE bd_formation CHARACTER SET utf8mb4;"
