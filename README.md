@@ -1,4 +1,4 @@
-#  Plateforme de gestion de formations
+# Plateforme de gestion de formations
 
 > Application web **bilingue (arabe / français)** de gestion de formations, développée avec **Spring Boot**, intégrant un **assistant IA local** conçu pour protéger les données personnelles des participants.
 
@@ -12,6 +12,18 @@ Projet réalisé dans le cadre d'un **stage ingénieur** (ENICarthage – CNI, U
 Il reconstruit une application PHP vulnérable en une architecture Java sécurisée et maintenable.
 
 ---
+
+##  Aperçu
+
+| Tableau de bord admin | Mes formations (participant) |
+|---|---|
+| ![dashboard](docs/screenshots/tableau_de_bord.png) | ![formations](docs/screenshots/liste_cycles.png) |
+
+| Assistant intelligent | 
+|---|---|
+| ![chatbot](docs/screenshots/resultat_analyse.png) | 
+
+
 
 ##  Fonctionnalités
 
@@ -56,13 +68,13 @@ Il reconstruit une application PHP vulnérable en une architecture Java sécuris
 
 Architecture en couches par module : `entity → repository → service → dto/mapper → controller → templates`.
 
-![architecture](docs/diagrams/arch-log-en-couches.png)
+![architecture](docs/diagrams/architecture.png)
 
-Diagrammes UML (classes, cas d'utilisation, activités) : dossier [`docs/uml`](docs/diagrams).
+Diagrammes UML (classes, cas d'utilisation, activités) : dossier [`docs/uml`](docs/uml).
 
 ---
 
-## Technologies
+##  Technologies
 
 Java 21 · Spring Boot 3.3.4 · Spring Security · Spring Data JPA/Hibernate · Thymeleaf · MariaDB · Lombok · OpenPDF · Chart.js · Ollama · JUnit 5 / Mockito / H2 · Maven
 
@@ -95,9 +107,14 @@ mvn spring-boot:run
 ```
 Application : <http://localhost:8080>
 
+### Comptes de démonstration
+| Rôle | Email | Mot de passe |
+|---|---|---|
+| Admin | admin@cfd.tn | Admin@2026 |
+| Formateur | formateur01@example.com (jusqu'à formateur04)| Formateur@2026 |
+| Participant | participant01@example.com (jusqu'à participant16) | Participant@2026 |
 
 
----
 
 ## Tests
 ```bash
@@ -115,12 +132,12 @@ src/main/java/.../
 src/main/resources/
  ├─ templates/     vues Thymeleaf
  ├─ messages*.properties   (ar / fr)
-docs/              captures, diagrammes 
+docs/              captures, diagrammes UML
 ```
 
 ---
 
-##  Perspectives
+## Perspectives
 - Défense dédiée contre l'injection de prompt
 - Purge automatique et suppression de compte en libre-service (droits des personnes)
 - Authentification à deux facteurs
@@ -128,7 +145,7 @@ docs/              captures, diagrammes
 
 ---
 
-## Auteure
+##  Auteure
 **Rahma** — Élève ingénieure, ENICarthage
-[LinkedIn](https://linkedin.com/in/tobji-rahma-4b1029411) · [GitHub](https://github.com/Rahma1972)
+[LinkedIn](https://linkedin.com/in//tobji-rahma-4b1029411) · [GitHub](https://github.com/Rahma1972  )
 
