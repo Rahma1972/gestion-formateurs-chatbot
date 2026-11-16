@@ -68,9 +68,9 @@ Il reconstruit une application PHP vulnérable en une architecture Java sécuris
 
 Architecture en couches par module : `entity → repository → service → dto/mapper → controller → templates`.
 
-![architecture](docs/diagrams/architecture.png)
+![architecture](docs/diagrams/arch_log_en.png)
 
-Diagrammes UML (classes, cas d'utilisation, activités) : dossier [`docs/uml`](docs/uml).
+Diagrammes UML (classes, cas d'utilisation, activités) : dossier [`docs/diagrams`](docs/diagrams).
 
 ---
 
